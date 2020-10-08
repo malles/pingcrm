@@ -160,12 +160,6 @@ Route::put('produkten/{product}/herstel', [ProductsController::class, 'restore']
     ->name('products.restore')
     ->middleware('auth');
 
-// Reports
-
-Route::get('reports', [ReportsController::class, 'index'])
-    ->name('reports')
-    ->middleware('auth');
-
 // Images
 
 Route::get('/img/{path}', [ImagesController::class, 'show'])->where('path', '.*');
