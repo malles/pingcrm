@@ -37,6 +37,8 @@
                                 label="E-mail" />
                     <text-input v-model="form.phone" :error="errors.phone" class="pr-6 pb-8 w-full lg:w-1/2"
                                 label="Telefoon" />
+                    <textarea-input v-model="form.notes" :error="errors.notes" class="pr-6 pb-8 w-full"
+                                    label="Notities" />
                 </div>
                 <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
                     <button v-if="!parc.deleted_at" class="text-red-600 hover:underline" tabindex="-1"
@@ -56,6 +58,7 @@
 import Layout from '@/Shared/Layout';
 import LoadingButton from '@/Shared/LoadingButton';
 import SelectInput from '@/Shared/SelectInput';
+import TextareaInput from '@/Shared/TextareaInput';
 import TextInput from '@/Shared/TextInput';
 import TrashedMessage from '@/Shared/TrashedMessage';
 
@@ -68,6 +71,7 @@ export default {
         LoadingButton,
         SelectInput,
         TextInput,
+        TextareaInput,
         TrashedMessage,
     },
     props: {
@@ -88,6 +92,7 @@ export default {
                 contact: this.parc.contact,
                 email: this.parc.email,
                 phone: this.parc.phone,
+                notes: this.parc.notes,
             },
         };
     },

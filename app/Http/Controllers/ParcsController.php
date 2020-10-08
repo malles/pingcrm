@@ -40,6 +40,7 @@ class ParcsController extends Controller
                 'contact' => ['nullable', 'max:100'],
                 'email' => ['nullable', 'max:50', 'email'],
                 'phone' => ['nullable', 'max:50'],
+                'notes' => ['nullable'],
             ])
         );
 
@@ -60,6 +61,7 @@ class ParcsController extends Controller
                 'contact' => $parc->contact,
                 'email' => $parc->email,
                 'phone' => $parc->phone,
+                'notes' => $parc->notes,
                 'deleted_at' => $parc->deleted_at,
             ],
         ]);
@@ -78,6 +80,7 @@ class ParcsController extends Controller
                 'contact' => ['nullable', 'max:100'],
                 'email' => ['nullable', 'max:50', 'email'],
                 'phone' => ['nullable', 'max:50'],
+                'notes' => ['nullable'],
             ])
         );
 
@@ -95,6 +98,6 @@ class ParcsController extends Controller
     {
         $parc->restore();
 
-        return Redirect::back()->with('success', 'Parck hersteld.');
+        return Redirect::back()->with('success', 'Park hersteld.');
     }
 }

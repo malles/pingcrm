@@ -33,6 +33,8 @@
                                 label="E-mail" />
                     <text-input v-model="form.phone" :error="errors.phone" class="pr-6 pb-8 w-full lg:w-1/2"
                                 label="Telefoon" />
+                    <textarea-input v-model="form.notes" :error="errors.notes" class="pr-6 pb-8 w-full"
+                                    label="Notities" />
                 </div>
                 <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center">
                     <loading-button :loading="sending" class="btn-indigo" type="submit">
@@ -49,6 +51,7 @@ import Layout from '@/Shared/Layout';
 import LoadingButton from '@/Shared/LoadingButton';
 import SelectInput from '@/Shared/SelectInput';
 import TextInput from '@/Shared/TextInput';
+import TextareaInput from '@/Shared/TextareaInput';
 
 export default {
     metaInfo: {title: 'Maak nieuw Park',},
@@ -57,6 +60,7 @@ export default {
         LoadingButton,
         SelectInput,
         TextInput,
+        TextareaInput,
     },
     props: {
         errors: Object,
@@ -75,6 +79,7 @@ export default {
                 contact: null,
                 email: null,
                 phone: null,
+                notes: null,
             },
         };
     },

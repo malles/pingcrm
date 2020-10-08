@@ -25,6 +25,7 @@ class CreateParcsTable extends Migration
             $table->string('contact', 100)->nullable();
             $table->string('email', 50)->nullable();
             $table->string('phone', 50)->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
