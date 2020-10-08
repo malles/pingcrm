@@ -70,62 +70,62 @@
 </template>
 
 <script>
-import Icon from '@/Shared/Icon'
-import Layout from '@/Shared/Layout'
-import LoadingButton from '@/Shared/LoadingButton'
-import SelectInput from '@/Shared/SelectInput'
-import TextInput from '@/Shared/TextInput'
-import TrashedMessage from '@/Shared/TrashedMessage'
+import Icon from '@/Shared/Icon';
+import Layout from '@/Shared/Layout';
+import LoadingButton from '@/Shared/LoadingButton';
+import SelectInput from '@/Shared/SelectInput';
+import TextInput from '@/Shared/TextInput';
+import TrashedMessage from '@/Shared/TrashedMessage';
 
 export default {
-  metaInfo() {
-    return { title: this.form.name }
-  },
-  layout: Layout,
-  components: {
-    Icon,
-    LoadingButton,
-    SelectInput,
-    TextInput,
-    TrashedMessage,
-  },
-  props: {
-    errors: Object,
-    organization: Object,
-  },
-  remember: 'form',
-  data() {
-    return {
-      sending: false,
-      form: {
-        name: this.organization.name,
-        email: this.organization.email,
-        phone: this.organization.phone,
-        address: this.organization.address,
-        city: this.organization.city,
-        region: this.organization.region,
-        country: this.organization.country,
-        postal_code: this.organization.postal_code,
-      },
-    }
-  },
-  methods: {
-    submit() {
-      this.$inertia.put(this.route('organizations.update', this.organization.id), this.form, {
-        onStart: () => this.sending = true,
-        onFinish: () => this.sending = false,
-      })
+    metaInfo() {
+        return { title: this.form.name, };
     },
-    destroy() {
-      if (confirm('Are you sure you want to delete this organization?')) {
-        this.$inertia.delete(this.route('organizations.destroy', this.organization.id))
-      }
+    layout: Layout,
+    components: {
+        Icon,
+        LoadingButton,
+        SelectInput,
+        TextInput,
+        TrashedMessage,
     },
-    restore() {
-      if (confirm('Are you sure you want to restore this organization?')) {
-        this.$inertia.put(this.route('organizations.restore', this.organization.id))
-      }
+    props: {
+        errors: Object,
+        organization: Object,
     },
-  },
-}
+    remember: 'form',
+    data() {
+        return {
+            sending: false,
+            form: {
+                name: this.organization.name,
+                email: this.organization.email,
+                phone: this.organization.phone,
+                address: this.organization.address,
+                city: this.organization.city,
+                region: this.organization.region,
+                country: this.organization.country,
+                postal_code: this.organization.postal_code,
+            },
+        };
+    },
+    methods: {
+        submit() {
+            this.$inertia.put(this.route('organizations.update', this.organization.id), this.form, {
+                onStart: () => this.sending = true,
+                onFinish: () => this.sending = false,
+            });
+        },
+        destroy() {
+            if (confirm('Are you sure you want to delete this organization?')) {
+                this.$inertia.delete(this.route('organizations.destroy', this.organization.id));
+            }
+        },
+        restore() {
+            if (confirm('Are you sure you want to restore this organization?')) {
+                this.$inertia.put(this.route('organizations.restore', this.organization.id));
+            }
+        },
+    },
+};
 </script>

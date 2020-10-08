@@ -29,45 +29,45 @@
 </template>
 
 <script>
-import Layout from '@/Shared/Layout'
-import LoadingButton from '@/Shared/LoadingButton'
-import SelectInput from '@/Shared/SelectInput'
-import TextInput from '@/Shared/TextInput'
+import Layout from '@/Shared/Layout';
+import LoadingButton from '@/Shared/LoadingButton';
+import SelectInput from '@/Shared/SelectInput';
+import TextInput from '@/Shared/TextInput';
 
 export default {
-  metaInfo: { title: 'Create Organization' },
-  layout: Layout,
-  components: {
-    LoadingButton,
-    SelectInput,
-    TextInput,
-  },
-  props: {
-    errors: Object,
-  },
-  remember: 'form',
-  data() {
-    return {
-      sending: false,
-      form: {
-        name: null,
-        email: null,
-        phone: null,
-        address: null,
-        city: null,
-        region: null,
-        country: null,
-        postal_code: null,
-      },
-    }
-  },
-  methods: {
-    submit() {
-      this.$inertia.post(this.route('organizations.store'), this.form, {
-        onStart: () => this.sending = true,
-        onFinish: () => this.sending = false,
-      })
+    metaInfo: { title: 'Create Organization', },
+    layout: Layout,
+    components: {
+        LoadingButton,
+        SelectInput,
+        TextInput,
     },
-  },
-}
+    props: {
+        errors: Object,
+    },
+    remember: 'form',
+    data() {
+        return {
+            sending: false,
+            form: {
+                name: null,
+                email: null,
+                phone: null,
+                address: null,
+                city: null,
+                region: null,
+                country: null,
+                postal_code: null,
+            },
+        };
+    },
+    methods: {
+        submit() {
+            this.$inertia.post(this.route('organizations.store'), this.form, {
+                onStart: () => this.sending = true,
+                onFinish: () => this.sending = false,
+            });
+        },
+    },
+};
 </script>

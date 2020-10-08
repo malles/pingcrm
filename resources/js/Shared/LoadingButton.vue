@@ -7,8 +7,8 @@
 
 <script>
 export default {
-  props: {
-    loading: Boolean,
-  },
-}
+    props: {
+        loading: Boolean,
+    },
+};
 </script>

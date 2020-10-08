@@ -34,48 +34,48 @@
 </template>
 
 <script>
-import Layout from '@/Shared/Layout'
-import LoadingButton from '@/Shared/LoadingButton'
-import SelectInput from '@/Shared/SelectInput'
-import TextInput from '@/Shared/TextInput'
+import Layout from '@/Shared/Layout';
+import LoadingButton from '@/Shared/LoadingButton';
+import SelectInput from '@/Shared/SelectInput';
+import TextInput from '@/Shared/TextInput';
 
 export default {
-  metaInfo: { title: 'Create Contact' },
-  layout: Layout,
-  components: {
-    LoadingButton,
-    SelectInput,
-    TextInput,
-  },
-  props: {
-    errors: Object,
-    organizations: Array,
-  },
-  remember: 'form',
-  data() {
-    return {
-      sending: false,
-      form: {
-        first_name: null,
-        last_name: null,
-        organization_id: null,
-        email: null,
-        phone: null,
-        address: null,
-        city: null,
-        region: null,
-        country: null,
-        postal_code: null,
-      },
-    }
-  },
-  methods: {
-    submit() {
-      this.$inertia.post(this.route('contacts.store'), this.form, {
-        onStart: () => this.sending = true,
-        onFinish: () => this.sending = false,
-      })
+    metaInfo: { title: 'Create Contact', },
+    layout: Layout,
+    components: {
+        LoadingButton,
+        SelectInput,
+        TextInput,
     },
-  },
-}
+    props: {
+        errors: Object,
+        organizations: Array,
+    },
+    remember: 'form',
+    data() {
+        return {
+            sending: false,
+            form: {
+                first_name: null,
+                last_name: null,
+                organization_id: null,
+                email: null,
+                phone: null,
+                address: null,
+                city: null,
+                region: null,
+                country: null,
+                postal_code: null,
+            },
+        };
+    },
+    methods: {
+        submit() {
+            this.$inertia.post(this.route('contacts.store'), this.form, {
+                onStart: () => this.sending = true,
+                onFinish: () => this.sending = false,
+            });
+        },
+    },
+};
 </script>

@@ -15,8 +15,8 @@
 
 <script>
 export default {
-  props: {
-    name: String,
-  },
-}
+    props: {
+        name: String,
+    },
+};
 </script>

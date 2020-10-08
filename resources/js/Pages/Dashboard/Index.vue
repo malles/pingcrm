@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import Layout from '@/Shared/Layout'
+import Layout from '@/Shared/Layout';
 
 export default {
-  metaInfo: { title: 'Dashboard' },
-  layout: Layout,
-}
+    metaInfo: { title: 'Dashboard', },
+    layout: Layout,
+};
 </script>

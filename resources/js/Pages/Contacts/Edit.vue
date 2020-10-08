@@ -39,65 +39,65 @@
 </template>
 
 <script>
-import Layout from '@/Shared/Layout'
-import LoadingButton from '@/Shared/LoadingButton'
-import SelectInput from '@/Shared/SelectInput'
-import TextInput from '@/Shared/TextInput'
-import TrashedMessage from '@/Shared/TrashedMessage'
+import Layout from '@/Shared/Layout';
+import LoadingButton from '@/Shared/LoadingButton';
+import SelectInput from '@/Shared/SelectInput';
+import TextInput from '@/Shared/TextInput';
+import TrashedMessage from '@/Shared/TrashedMessage';
 
 export default {
-  metaInfo() {
-    return {
-      title: `${this.form.first_name} ${this.form.last_name}`,
-    }
-  },
-  layout: Layout,
-  components: {
-    LoadingButton,
-    SelectInput,
-    TextInput,
-    TrashedMessage,
-  },
-  props: {
-    errors: Object,
-    contact: Object,
-    organizations: Array,
-  },
-  remember: 'form',
-  data() {
-    return {
-      sending: false,
-      form: {
-        first_name: this.contact.first_name,
-        last_name: this.contact.last_name,
-        organization_id: this.contact.organization_id,
-        email: this.contact.email,
-        phone: this.contact.phone,
-        address: this.contact.address,
-        city: this.contact.city,
-        region: this.contact.region,
-        country: this.contact.country,
-        postal_code: this.contact.postal_code,
-      },
-    }
-  },
-  methods: {
-    submit() {
-      this.$inertia.put(this.route('contacts.update', this.contact.id), this.form, {
-        onStart: () => this.sending = true,
-        onFinish: () => this.sending = false,
-      })
+    metaInfo() {
+        return {
+            title: `${this.form.first_name} ${this.form.last_name}`,
+        };
     },
-    destroy() {
-      if (confirm('Are you sure you want to delete this contact?')) {
-        this.$inertia.delete(this.route('contacts.destroy', this.contact.id))
-      }
+    layout: Layout,
+    components: {
+        LoadingButton,
+        SelectInput,
+        TextInput,
+        TrashedMessage,
     },
-    restore() {
-      if (confirm('Are you sure you want to restore this contact?')) {
-        this.$inertia.put(this.route('contacts.restore', this.contact.id))
-      }
+    props: {
+        errors: Object,
+        contact: Object,
+        organizations: Array,
     },
-  },
-}
+    remember: 'form',
+    data() {
+        return {
+            sending: false,
+            form: {
+                first_name: this.contact.first_name,
+                last_name: this.contact.last_name,
+                organization_id: this.contact.organization_id,
+                email: this.contact.email,
+                phone: this.contact.phone,
+                address: this.contact.address,
+                city: this.contact.city,
+                region: this.contact.region,
+                country: this.contact.country,
+                postal_code: this.contact.postal_code,
+            },
+        };
+    },
+    methods: {
+        submit() {
+            this.$inertia.put(this.route('contacts.update', this.contact.id), this.form, {
+                onStart: () => this.sending = true,
+                onFinish: () => this.sending = false,
+            });
+        },
+        destroy() {
+            if (confirm('Are you sure you want to delete this contact?')) {
+                this.$inertia.delete(this.route('contacts.destroy', this.contact.id));
+            }
+        },
+        restore() {
+            if (confirm('Are you sure you want to restore this contact?')) {
+                this.$inertia.put(this.route('contacts.restore', this.contact.id));
+            }
+        },
+    },
+};
 </script>

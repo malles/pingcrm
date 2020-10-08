@@ -55,47 +55,47 @@
 </template>
 
 <script>
-import Icon from '@/Shared/Icon'
-import Layout from '@/Shared/Layout'
-import mapValues from 'lodash/mapValues'
-import Pagination from '@/Shared/Pagination'
-import pickBy from 'lodash/pickBy'
-import SearchFilter from '@/Shared/SearchFilter'
-import throttle from 'lodash/throttle'
+import Icon from '@/Shared/Icon';
+import Layout from '@/Shared/Layout';
+import mapValues from 'lodash/mapValues';
+import Pagination from '@/Shared/Pagination';
+import pickBy from 'lodash/pickBy';
+import SearchFilter from '@/Shared/SearchFilter';
+import throttle from 'lodash/throttle';
 
 export default {
-  metaInfo: { title: 'Organizations' },
-  layout: Layout,
-  components: {
-    Icon,
-    Pagination,
-    SearchFilter,
-  },
-  props: {
-    organizations: Object,
-    filters: Object,
-  },
-  data() {
-    return {
-      form: {
-        search: this.filters.search,
-        trashed: this.filters.trashed,
-      },
-    }
-  },
-  watch: {
-    form: {
-      handler: throttle(function() {
-        let query = pickBy(this.form)
-        this.$inertia.replace(this.route('organizations', Object.keys(query).length ? query : { remember: 'forget' }))
-      }, 150),
-      deep: true,
+    metaInfo: { title: 'Organizations', },
+    layout: Layout,
+    components: {
+        Icon,
+        Pagination,
+        SearchFilter,
     },
-  },
-  methods: {
-    reset() {
-      this.form = mapValues(this.form, () => null)
+    props: {
+        organizations: Object,
+        filters: Object,
     },
-  },
-}
+    data() {
+        return {
+            form: {
+                search: this.filters.search,
+                trashed: this.filters.trashed,
+            },
+        };
+    },
+    watch: {
+        form: {
+            handler: throttle(function() {
+                let query = pickBy(this.form);
+                this.$inertia.replace(this.route('organizations', Object.keys(query).length ? query : { remember: 'forget', }));
+            }, 150),
+            deep: true,
+        },
+    },
+    methods: {
+        reset() {
+            this.form = mapValues(this.form, () => null);
+        },
+    },
+};
 </script>

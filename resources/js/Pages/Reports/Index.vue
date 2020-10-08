@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import Layout from '@/Shared/Layout'
+import Layout from '@/Shared/Layout';
 
 export default {
-  metaInfo: { title: 'Reports' },
-  layout: Layout,
-}
+    metaInfo: { title: 'Reports', },
+    layout: Layout,
+};
 </script>

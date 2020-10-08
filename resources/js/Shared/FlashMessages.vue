@@ -27,18 +27,18 @@
 
 <script>
 export default {
-  data() {
-    return {
-      show: true,
-    }
-  },
-  watch: {
-    '$page.flash': {
-      handler() {
-        this.show = true
-      },
-      deep: true,
+    data() {
+        return {
+            show: true,
+        };
     },
-  },
-}
+    watch: {
+        '$page.flash': {
+            handler() {
+                this.show = true;
+            },
+            deep: true,
+        },
+    },
+};
 </script>

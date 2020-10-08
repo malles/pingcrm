@@ -21,36 +21,36 @@
 
 <script>
 export default {
-  props: {
-    value: File,
-    label: String,
-    accept: String,
-    errors: {
-      type: Array,
-      default: () => [],
+    props: {
+        value: File,
+        label: String,
+        accept: String,
+        errors: {
+            type: Array,
+            default: () => [],
+        },
     },
-  },
-  watch: {
-    value(value) {
-      if (!value) {
-        this.$refs.file.value = ''
-      }
+    watch: {
+        value(value) {
+            if (!value) {
+                this.$refs.file.value = '';
+            }
+        },
     },
-  },
-  methods: {
-    filesize(size) {
-      var i = Math.floor(Math.log(size) / Math.log(1024))
-      return (size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i]
+    methods: {
+        filesize(size) {
+            let i = Math.floor(Math.log(size) / Math.log(1024));
+            return (size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB',][i];
+        },
+        browse() {
+            this.$refs.file.click();
+        },
+        change(e) {
+            this.$emit('input', e.target.files[0]);
+        },
+        remove() {
+            this.$emit('input', null);
+        },
     },
-    browse() {
-      this.$refs.file.click()
-    },
-    change(e) {
-      this.$emit('input', e.target.files[0])
-    },
-    remove() {
-      this.$emit('input', null)
-    },
-  },
-}
+};
 </script>
