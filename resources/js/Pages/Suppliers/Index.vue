@@ -27,7 +27,7 @@
                         <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500"
                                       :href="route('suppliers.edit', supplier.id)">
                             {{ supplier.name }}
-                            <icon v-if="supplier.deleted_at" name="trash" class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" />
+                            <icon v-if="supplier.deleted_at" :icon="['far', 'trash-alt']" class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" />
                         </inertia-link>
                     </td>
                     <td class="border-t">
@@ -44,7 +44,7 @@
                     </td>
                     <td class="border-t w-px">
                         <inertia-link class="px-4 flex items-center" :href="route('suppliers.edit', supplier.id)" tabindex="-1">
-                            <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" />
+                            <icon :icon="['far', 'chevron-right']" class="block w-6 h-6 fill-gray-400" />
                         </inertia-link>
                     </td>
                 </tr>
@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import Icon from '@/Shared/Icon';
 import Layout from '@/Shared/Layout';
 import mapValues from 'lodash/mapValues';
 import Pagination from '@/Shared/Pagination';
@@ -70,7 +69,6 @@ export default {
     metaInfo: {title: 'Leveranciers',},
     layout: Layout,
     components: {
-        Icon,
         Pagination,
         SearchFilter,
     },
