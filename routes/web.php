@@ -4,7 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
-use App\Http\Controllers\OrganizationsController;
+use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\ParcsController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
@@ -102,32 +102,32 @@ Route::put('parken/{parc}/herstel', [ParcsController::class, 'restore'])
 
 // Organizations
 
-Route::get('organizations', [OrganizationsController::class, 'index'])
-    ->name('organizations')
+Route::get('leveranciers', [SuppliersController::class, 'index'])
+    ->name('suppliers')
     ->middleware('remember', 'auth');
 
-Route::get('organizations/create', [OrganizationsController::class, 'create'])
-    ->name('organizations.create')
+Route::get('leveranciers/create', [SuppliersController::class, 'create'])
+    ->name('suppliers.create')
     ->middleware('auth');
 
-Route::post('organizations', [OrganizationsController::class, 'store'])
-    ->name('organizations.store')
+Route::post('leveranciers', [SuppliersController::class, 'store'])
+    ->name('suppliers.store')
     ->middleware('auth');
 
-Route::get('organizations/{organization}/edit', [OrganizationsController::class, 'edit'])
-    ->name('organizations.edit')
+Route::get('leveranciers/{supplier}/edit', [SuppliersController::class, 'edit'])
+    ->name('suppliers.edit')
     ->middleware('auth');
 
-Route::put('organizations/{organization}', [OrganizationsController::class, 'update'])
-    ->name('organizations.update')
+Route::put('leveranciers/{supplier}', [SuppliersController::class, 'update'])
+    ->name('suppliers.update')
     ->middleware('auth');
 
-Route::delete('organizations/{organization}', [OrganizationsController::class, 'destroy'])
-    ->name('organizations.destroy')
+Route::delete('leveranciers/{supplier}', [SuppliersController::class, 'destroy'])
+    ->name('suppliers.destroy')
     ->middleware('auth');
 
-Route::put('organizations/{organization}/restore', [OrganizationsController::class, 'restore'])
-    ->name('organizations.restore')
+Route::put('leveranciers/{supplier}/restore', [SuppliersController::class, 'restore'])
+    ->name('suppliers.restore')
     ->middleware('auth');
 
 // Contacts

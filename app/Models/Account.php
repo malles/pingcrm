@@ -9,9 +9,9 @@ class Account extends Model
         return $this->hasMany(User::class);
     }
 
-    public function organizations()
+    public function suppliers()
     {
-        return $this->hasMany(Organization::class);
+        return $this->hasMany(Supplier::class);
     }
 
     public function contacts()

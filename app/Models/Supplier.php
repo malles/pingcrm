@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Organization extends Model
+class Supplier extends Model
 {
     use SoftDeletes;
 
-    public function contacts()
-    {
-        return $this->hasMany(Contact::class);
-    }
+//    public function contacts()
+//    {
+//        return $this->hasMany(Contact::class);
+//    }
 
     public function scopeFilter($query, array $filters)
     {
