@@ -78,10 +78,6 @@ class UsersController extends Controller
 
     public function update(User $user)
     {
-        if (App::environment('demo') && $user->isDemoUser()) {
-            return Redirect::back()->with('error', 'Updating the demo user is not allowed.');
-        }
-
         Request::validate([
             'first_name' => ['required', 'max:50'],
             'last_name' => ['required', 'max:50'],
@@ -106,10 +102,6 @@ class UsersController extends Controller
 
     public function destroy(User $user)
     {
-        if (App::environment('demo') && $user->isDemoUser()) {
-            return Redirect::back()->with('error', 'Deleting the demo user is not allowed.');
-        }
-
         $user->delete();
 
         return Redirect::back()->with('success', 'User deleted.');
