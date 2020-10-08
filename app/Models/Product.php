@@ -4,13 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Supplier extends Model
+class Product extends Model
 {
     use SoftDeletes;
 
-    public function products()
+    protected $casts = [
+        'cost_price' => 'float',
+        'selling_price' => 'float',
+    ];
+
+    public function supplier()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(Supplier::class);
     }
 
     public function scopeFilter($query, array $filters)

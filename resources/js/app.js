@@ -10,6 +10,12 @@ Vue.use(InertiaApp);
 Vue.use(PortalVue);
 Vue.use(VueMeta);
 
+Vue.filter('currency', value => Number(value).toLocaleString([], {
+    style: 'currency',
+    currency: 'EUR',
+    currencyDisplay: 'symbol',
+}))
+
 InertiaProgress.init();
 
 let app = document.getElementById('app');

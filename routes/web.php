@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\SuppliersController;
@@ -100,7 +100,7 @@ Route::put('parken/{parc}/herstel', [ParcsController::class, 'restore'])
     ->name('parcs.restore')
     ->middleware('auth');
 
-// Organizations
+// Suppliers
 
 Route::get('leveranciers', [SuppliersController::class, 'index'])
     ->name('suppliers')
@@ -130,34 +130,34 @@ Route::put('leveranciers/{supplier}/restore', [SuppliersController::class, 'rest
     ->name('suppliers.restore')
     ->middleware('auth');
 
-// Contacts
+// Products
 
-Route::get('contacts', [ContactsController::class, 'index'])
-    ->name('contacts')
+Route::get('produkten', [ProductsController::class, 'index'])
+    ->name('products')
     ->middleware('remember', 'auth');
 
-Route::get('contacts/create', [ContactsController::class, 'create'])
-    ->name('contacts.create')
+Route::get('produkten/nieuw', [ProductsController::class, 'create'])
+    ->name('products.create')
     ->middleware('auth');
 
-Route::post('contacts', [ContactsController::class, 'store'])
-    ->name('contacts.store')
+Route::post('produkten', [ProductsController::class, 'store'])
+    ->name('products.store')
     ->middleware('auth');
 
-Route::get('contacts/{contact}/edit', [ContactsController::class, 'edit'])
-    ->name('contacts.edit')
+Route::get('produkten/{product}/bewerk', [ProductsController::class, 'edit'])
+    ->name('products.edit')
     ->middleware('auth');
 
-Route::put('contacts/{contact}', [ContactsController::class, 'update'])
-    ->name('contacts.update')
+Route::put('produkten/{product}', [ProductsController::class, 'update'])
+    ->name('products.update')
     ->middleware('auth');
 
-Route::delete('contacts/{contact}', [ContactsController::class, 'destroy'])
-    ->name('contacts.destroy')
+Route::delete('produkten/{product}', [ProductsController::class, 'destroy'])
+    ->name('products.destroy')
     ->middleware('auth');
 
-Route::put('contacts/{contact}/restore', [ContactsController::class, 'restore'])
-    ->name('contacts.restore')
+Route::put('produkten/{product}/herstel', [ProductsController::class, 'restore'])
+    ->name('products.restore')
     ->middleware('auth');
 
 // Reports

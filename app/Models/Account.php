@@ -14,9 +14,9 @@ class Account extends Model
         return $this->hasMany(Supplier::class);
     }
 
-    public function contacts()
+    public function products()
     {
-        return $this->hasMany(Contact::class);
+        return $this->hasMany(Product::class);
     }
 
     public function parcs()

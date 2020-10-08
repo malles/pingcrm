@@ -18,7 +18,7 @@ class SuppliersController extends Controller
                 ->orderBy('name')
                 ->filter(Request::only('search', 'trashed'))
                 ->paginate()
-                ->only('id', 'name', 'phone', 'city', 'deleted_at'),
+                ->only('id', 'name', 'city', 'contact', 'deleted_at'),
         ]);
     }
 
