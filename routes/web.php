@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\OrganizationsController;
+use App\Http\Controllers\ParcsController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -67,6 +68,36 @@ Route::delete('users/{user}', [UsersController::class, 'destroy'])
 
 Route::put('users/{user}/restore', [UsersController::class, 'restore'])
     ->name('users.restore')
+    ->middleware('auth');
+
+// Parcs
+
+Route::get('parken', [ParcsController::class, 'index'])
+    ->name('parcs')
+    ->middleware('remember', 'auth');
+
+Route::get('parken/nieuw', [ParcsController::class, 'create'])
+    ->name('parcs.create')
+    ->middleware('auth');
+
+Route::post('parken', [ParcsController::class, 'store'])
+    ->name('parcs.store')
+    ->middleware('auth');
+
+Route::get('parken/{parc}/bewerk', [ParcsController::class, 'edit'])
+    ->name('parcs.edit')
+    ->middleware('auth');
+
+Route::put('parken/{parc}', [ParcsController::class, 'update'])
+    ->name('parcs.update')
+    ->middleware('auth');
+
+Route::delete('parken/{parc}', [ParcsController::class, 'destroy'])
+    ->name('parcs.destroy')
+    ->middleware('auth');
+
+Route::put('parken/{parc}/herstel', [ParcsController::class, 'restore'])
+    ->name('parcs.restore')
     ->middleware('auth');
 
 // Organizations
@@ -139,13 +170,3 @@ Route::get('reports', [ReportsController::class, 'index'])
 
 Route::get('/img/{path}', [ImagesController::class, 'show'])->where('path', '.*');
 
-// 500 error
-
-Route::get('500', function () {
-    // Force debug mode for this endpoint in the demo environment
-    if (App::environment('demo')) {
-        Config::set('app.debug', true);
-    }
-
-    echo $fail;
-});
