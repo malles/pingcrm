@@ -9,6 +9,11 @@ class Account extends Model
         return $this->hasMany(User::class);
     }
 
+    public function parcs()
+    {
+        return $this->hasMany(Parc::class);
+    }
+
     public function suppliers()
     {
         return $this->hasMany(Supplier::class);
@@ -19,8 +24,8 @@ class Account extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function parcs()
+    public function orders()
     {
-        return $this->hasMany(Parc::class);
+        return $this->hasMany(Order::class);
     }
 }

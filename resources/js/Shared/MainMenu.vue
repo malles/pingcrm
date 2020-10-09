@@ -24,6 +24,12 @@
         <div :class="isUrl('produkten') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Produkten</div>
       </inertia-link>
     </div>
+    <div class="mb-4">
+      <inertia-link class="flex items-center group py-3" :href="route('orders')">
+        <icon :icon="['fad', 'file-signature']" class="w-4 h-4 mr-2" :class="isUrl('orders') ? 'text-white' : 'text-indigo-400 group-hover:text-white'" />
+        <div :class="isUrl('orders') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Orders</div>
+      </inertia-link>
+    </div>
   </div>
 </template>
 

@@ -18,7 +18,7 @@ class ParcsController extends Controller
                 ->orderBy('name')
                 ->filter(Request::only('search', 'trashed'))
                 ->paginate()
-                ->only('id', 'code', 'name', 'phone', 'city', 'deleted_at'),
+                ->only('id', 'code', 'name', 'contact', 'city', 'deleted_at'),
         ]);
     }
 

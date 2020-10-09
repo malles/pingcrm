@@ -11,6 +11,7 @@ import {
     faBoxesAlt,
     faTruckLoading,
     faHouseDay,
+    faFileSignature,
 } from '@fortawesome/pro-duotone-svg-icons';
 
 library.add(
@@ -21,6 +22,7 @@ library.add(
     faBoxesAlt,
     faTruckLoading,
     faHouseDay,
+    faFileSignature,
 );
 
 Vue.component('Icon', FontAwesomeIcon);

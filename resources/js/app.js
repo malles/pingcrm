@@ -16,6 +16,8 @@ Vue.filter('currency', value => Number(value).toLocaleString([], {
     currency: 'EUR',
     currencyDisplay: 'symbol',
 }))
+Vue.filter('date', date => (new Date(date)).toLocaleDateString())
+Vue.filter('datetime', date => (new Date(date)).toLocaleString())
 
 InertiaProgress.init();
 

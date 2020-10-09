@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
@@ -158,6 +159,36 @@ Route::delete('produkten/{product}', [ProductsController::class, 'destroy'])
 
 Route::put('produkten/{product}/herstel', [ProductsController::class, 'restore'])
     ->name('products.restore')
+    ->middleware('auth');
+
+// Orders
+
+Route::get('orders', [OrdersController::class, 'index'])
+    ->name('orders')
+    ->middleware('remember', 'auth');
+
+Route::get('orders/nieuw', [OrdersController::class, 'create'])
+    ->name('orders.create')
+    ->middleware('auth');
+
+Route::post('orders', [OrdersController::class, 'store'])
+    ->name('orders.store')
+    ->middleware('auth');
+
+Route::get('orders/{order}/bewerk', [OrdersController::class, 'edit'])
+    ->name('orders.edit')
+    ->middleware('auth');
+
+Route::put('orders/{order}', [OrdersController::class, 'update'])
+    ->name('orders.update')
+    ->middleware('auth');
+
+Route::delete('orders/{order}', [OrdersController::class, 'destroy'])
+    ->name('orders.destroy')
+    ->middleware('auth');
+
+Route::put('orders/{order}/herstel', [OrdersController::class, 'restore'])
+    ->name('orders.restore')
     ->middleware('auth');
 
 // Images
