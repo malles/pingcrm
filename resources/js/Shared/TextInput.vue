@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <label v-if="label" class="form-label" :for="id">{{ label }}:</label>
-    <input :id="id" ref="input" v-bind="$attrs"
-class="form-input" :class="{ error: error }"
-:type="type" :value="value" @input="$emit('input', $event.target.value)">
-    <div v-if="error" class="form-error">{{ error }}</div>
-  </div>
+    <div>
+        <label v-if="label" class="form-label" :for="id">{{ label }}:</label>
+        <input :id="id" ref="input" v-bind="$attrs"
+               class="form-input" :class="{ error: error }"
+               :type="type" :value="value" @input="$emit('input', $event.target.value)">
+        <div v-if="error" class="form-error">{{ error }}</div>
+    </div>
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
             type: String,
             default: 'text',
         },
-        value: [String, Number,],
+        value: [String, Number],
         label: String,
         error: String,
     },

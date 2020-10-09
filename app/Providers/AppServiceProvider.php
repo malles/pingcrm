@@ -130,11 +130,11 @@ class AppServiceProvider extends ServiceProvider
                         }
                     })->prepend([
                         'url' => $this->previousPageUrl(),
-                        'label' => 'Previous',
+                        'label' => 'Vorige',
                         'active' => false,
                     ])->push([
                         'url' => $this->nextPageUrl(),
-                        'label' => 'Next',
+                        'label' => 'Volgende',
                         'active' => false,
                     ]);
                 }
