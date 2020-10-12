@@ -66,16 +66,13 @@ export default {
         return {
             sending: false,
             form: {
-                first_name: null,
-                last_name: null,
-                organization_id: null,
-                email: null,
-                phone: null,
-                address: null,
-                city: null,
-                region: null,
-                country: null,
-                postal_code: null,
+                name: null,
+                supplier_id: null,
+                park_reference: null,
+                supplier_reference: null,
+                cost_price: 0,
+                selling_price: 0,
+                notes: null,
             },
         };
     },

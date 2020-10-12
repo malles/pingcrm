@@ -5,6 +5,8 @@ import {
     faTrashAlt,
     faChevronDown,
     faChevronRight,
+    faChevronUp,
+    faTrash,
 } from '@fortawesome/pro-regular-svg-icons';
 import {
     faTachometerAlt,
@@ -18,6 +20,8 @@ library.add(
     faTrashAlt,
     faChevronDown,
     faChevronRight,
+    faChevronUp,
+    faTrash,
     faTachometerAlt,
     faBoxesAlt,
     faTruckLoading,

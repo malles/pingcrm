@@ -50,6 +50,14 @@ class OrdersController extends Controller
                 ->get()
                 ->map
                 ->only('id', 'name'),
+            'products' => Auth::user()->account->products()
+                ->orderBy('name')
+                ->get()
+                ->map
+                ->only([
+                    'id', 'supplier_id', 'name', 'park_reference', 'supplier_reference',
+                    'cost_price', 'selling_price',
+                ]),
         ]);
     }
 
@@ -106,6 +114,11 @@ class OrdersController extends Controller
                 ->map
                 ->only('id', 'name'),
             'parks' => Auth::user()->account->parks()
+                ->orderBy('name')
+                ->get()
+                ->map
+                ->only('id', 'name'),
+            'products' => Auth::user()->account->products()
                 ->orderBy('name')
                 ->get()
                 ->map
