@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->integer('account_id')->index();
             $table->integer('supplier_id')->nullable()->index();
             $table->string('name', 100);
-            $table->string('parc_reference', 100);
+            $table->string('park_reference', 100);
             $table->string('supplier_reference', 100);
             $table->decimal('cost_price')->nullable();
             $table->decimal('selling_price')->nullable();

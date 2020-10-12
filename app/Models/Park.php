@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Parc extends Model
+class Park extends Model
 {
     use SoftDeletes;
 

@@ -10,7 +10,7 @@
                     <option value="only">Alleen verwijderd</option>
                 </select>
             </search-filter>
-            <inertia-link class="btn-indigo" :href="route('parcs.create')">
+            <inertia-link class="btn-indigo" :href="route('parks.create')">
                 <span>Nieuw</span>
                 <span class="hidden md:inline">park</span>
             </inertia-link>
@@ -23,44 +23,44 @@
                     <th class="px-6 pt-6 pb-4">Plaats</th>
                     <th class="px-6 pt-6 pb-4" colspan="2">Contact</th>
                 </tr>
-                <tr v-for="parc in parcs.data" :key="parc.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
+                <tr v-for="park in parks.data" :key="park.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
                     <td class="border-t">
                         <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500"
-                                      :href="route('parcs.edit', parc.id)">
-                            {{ parc.code }}
+                                      :href="route('parks.edit', park.id)">
+                            {{ park.code }}
                         </inertia-link>
                     </td>
                     <td class="border-t">
                         <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500"
-                                      :href="route('parcs.edit', parc.id)">
-                            {{ parc.name }}
-                            <icon v-if="parc.deleted_at" :icon="['far', 'trash-alt']" class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" />
+                                      :href="route('parks.edit', park.id)">
+                            {{ park.name }}
+                            <icon v-if="park.deleted_at" :icon="['far', 'trash-alt']" class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" />
                         </inertia-link>
                     </td>
                     <td class="border-t">
-                        <inertia-link class="px-6 py-4 flex items-center" :href="route('parcs.edit', parc.id)"
+                        <inertia-link class="px-6 py-4 flex items-center" :href="route('parks.edit', park.id)"
                                       tabindex="-1">
-                            {{ parc.city }}
+                            {{ park.city }}
                         </inertia-link>
                     </td>
                     <td class="border-t">
-                        <inertia-link class="px-6 py-4 flex items-center" :href="route('parcs.edit', parc.id)"
+                        <inertia-link class="px-6 py-4 flex items-center" :href="route('parks.edit', park.id)"
                                       tabindex="-1">
-                            {{ parc.contact }}
+                            {{ park.contact }}
                         </inertia-link>
                     </td>
                     <td class="border-t w-px">
-                        <inertia-link class="px-4 flex items-center" :href="route('parcs.edit', parc.id)" tabindex="-1">
+                        <inertia-link class="px-4 flex items-center" :href="route('parks.edit', park.id)" tabindex="-1">
                             <icon :icon="['far', 'chevron-right']" class="block w-6 h-6 fill-gray-400" />
                         </inertia-link>
                     </td>
                 </tr>
-                <tr v-if="parcs.data.length === 0">
+                <tr v-if="parks.data.length === 0">
                     <td class="border-t px-6 py-4" colspan="5">Geen parken gevonden.</td>
                 </tr>
             </table>
         </div>
-        <pagination :links="parcs.links" />
+        <pagination :links="parks.links" />
     </div>
 </template>
 
@@ -80,7 +80,7 @@ export default {
         SearchFilter,
     },
     props: {
-        parcs: Object,
+        parks: Object,
         filters: Object,
     },
     data() {
@@ -95,7 +95,7 @@ export default {
         form: {
             handler: throttle(function () {
                 let query = pickBy(this.form);
-                this.$inertia.replace(this.route('parcs', Object.keys(query).length ? query : {remember: 'forget',}));
+                this.$inertia.replace(this.route('parks', Object.keys(query).length ? query : {remember: 'forget',}));
             }, 150),
             deep: true,
         },

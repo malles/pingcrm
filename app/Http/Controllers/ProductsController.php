@@ -52,7 +52,7 @@ class ProductsController extends Controller
                 'supplier_id' => ['nullable', Rule::exists('suppliers', 'id')->where(function ($query) {
                     $query->where('account_id', Auth::user()->account_id);
                 })],
-                'parc_reference' => ['nullable', 'max:100'],
+                'park_reference' => ['nullable', 'max:100'],
                 'supplier_reference' => ['nullable', 'max:100'],
                 'cost_price' => ['nullable', 'numeric'],
                 'selling_price' => ['nullable', 'numeric'],
@@ -70,7 +70,7 @@ class ProductsController extends Controller
                 'id' => $product->id,
                 'name' => $product->name,
                 'supplier_id' => $product->supplier_id,
-                'parc_reference' => $product->parc_reference,
+                'park_reference' => $product->park_reference,
                 'supplier_reference' => $product->supplier_reference,
                 'cost_price' => $product->cost_price,
                 'selling_price' => $product->selling_price,
@@ -93,7 +93,7 @@ class ProductsController extends Controller
                 'supplier_id' => ['nullable', Rule::exists('suppliers', 'id')->where(function ($query) {
                     $query->where('account_id', Auth::user()->account_id);
                 })],
-                'parc_reference' => ['nullable', 'max:100'],
+                'park_reference' => ['nullable', 'max:100'],
                 'supplier_reference' => ['nullable', 'max:100'],
                 'cost_price' => ['nullable', 'numeric'],
                 'selling_price' => ['nullable', 'numeric'],

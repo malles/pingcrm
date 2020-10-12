@@ -1,15 +1,11 @@
 <template>
     <div>
         <h1 class="mb-8 font-bold text-3xl">
-            <inertia-link class="text-indigo-400 hover:text-indigo-600" :href="route('parcs')">
+            <inertia-link class="text-indigo-400 hover:text-indigo-600" :href="route('parks')">
                 Parken
             </inertia-link>
-            <span class="text-indigo-400 font-medium">/</span>
-            {{ form.name }}
+            <span class="text-indigo-400 font-medium">/</span> Nieuw
         </h1>
-        <trashed-message v-if="parc.deleted_at" class="mb-6" @restore="restore">
-            Dit park is verwijderd.
-        </trashed-message>
         <div class="bg-white rounded shadow overflow-hidden max-w-3xl">
             <form @submit.prevent="submit">
                 <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
@@ -40,13 +36,9 @@
                     <textarea-input v-model="form.notes" :error="errors.notes" class="pr-6 pb-8 w-full"
                                     label="Notities" />
                 </div>
-                <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
-                    <button v-if="!parc.deleted_at" class="text-red-600 hover:underline" tabindex="-1"
-                            type="button" @click="destroy">
-                        Verwijder park
-                    </button>
-                    <loading-button :loading="sending" class="btn-indigo ml-auto" type="submit">
-                        Sla park op
+                <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center">
+                    <loading-button :loading="sending" class="btn-indigo" type="submit">
+                        Park aanmaken
                     </loading-button>
                 </div>
             </form>
@@ -58,60 +50,45 @@
 import Layout from '@/Shared/Layout';
 import LoadingButton from '@/Shared/LoadingButton';
 import SelectInput from '@/Shared/SelectInput';
-import TextareaInput from '@/Shared/TextareaInput';
 import TextInput from '@/Shared/TextInput';
-import TrashedMessage from '@/Shared/TrashedMessage';
+import TextareaInput from '@/Shared/TextareaInput';
 
 export default {
-    metaInfo() {
-        return {title: this.form.name,};
-    },
+    metaInfo: {title: 'Maak nieuw Park',},
     layout: Layout,
     components: {
         LoadingButton,
         SelectInput,
         TextInput,
         TextareaInput,
-        TrashedMessage,
     },
     props: {
         errors: Object,
-        parc: Object,
     },
     remember: 'form',
     data() {
         return {
             sending: false,
             form: {
-                code: this.parc.code,
-                name: this.parc.name,
-                address: this.parc.address,
-                city: this.parc.city,
-                postal_code: this.parc.postal_code,
-                country: this.parc.country,
-                contact: this.parc.contact,
-                email: this.parc.email,
-                phone: this.parc.phone,
-                notes: this.parc.notes,
+                code: null,
+                name: null,
+                address: null,
+                postal_code: null,
+                city: null,
+                country: null,
+                contact: null,
+                email: null,
+                phone: null,
+                notes: null,
             },
         };
     },
     methods: {
         submit() {
-            this.$inertia.put(this.route('parcs.update', this.parc.id), this.form, {
+            this.$inertia.post(this.route('parks.store'), this.form, {
                 onStart: () => this.sending = true,
                 onFinish: () => this.sending = false,
             });
-        },
-        destroy() {
-            if (confirm('Wil je dit park verwijderen?')) {
-                this.$inertia.delete(this.route('parcs.destroy', this.parc.id));
-            }
-        },
-        restore() {
-            if (confirm('Wil je dit park herstellen?')) {
-                this.$inertia.put(this.route('parcs.restore', this.parc.id));
-            }
         },
     },
 };

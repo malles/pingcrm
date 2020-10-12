@@ -18,11 +18,11 @@
                     <text-input v-model="form.order_date" :error="errors.order_date"
                                 type="datetime-local" class="pr-6 pb-8 w-full lg:w-1/2"
                                 label="Datum" />
-                    <select-input v-model="form.parc_id" :error="errors.parc_id"
+                    <select-input v-model="form.park_id" :error="errors.park_id"
                                   class="pr-6 pb-8 w-full lg:w-1/2" label="Park">
                         <option :value="null">Maak een keuze</option>
-                        <option v-for="parc in parcs" :key="parc.id" :value="parc.id">
-                            {{ parc.name }}
+                        <option v-for="park in parks" :key="park.id" :value="park.id">
+                            {{ park.name }}
                         </option>
                     </select-input>
                     <select-input v-model="form.supplier_id" :error="errors.supplier_id"
@@ -32,12 +32,6 @@
                             {{ supplier.name }}
                         </option>
                     </select-input>
-                    <text-input v-model="form.internal_invoice_id" :error="errors.internal_invoice_id"
-                                class="pr-6 pb-8 w-full lg:w-1/2"
-                                label="Intern factuurnummer" />
-                    <text-input v-model="form.external_invoice_id" :error="errors.external_invoice_id"
-                                class="pr-6 pb-8 w-full lg:w-1/2"
-                                label="Extern factuurnummer" />
                     <text-input v-model="form.cost_price" :error="errors.cost_price"
                                 type="number" step="0.01" class="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Inkoopprijs" />
@@ -59,6 +53,12 @@
                     <text-input v-model="form.invoiced_at" :error="errors.invoiced_at"
                                 type="date" class="pr-6 pb-8 w-full lg:w-1/2"
                                 label="Datum" />
+                    <text-input v-model="form.internal_invoice_id" :error="errors.internal_invoice_id"
+                                class="pr-6 pb-8 w-full lg:w-1/2"
+                                label="Intern factuurnummer" />
+                    <text-input v-model="form.external_invoice_id" :error="errors.external_invoice_id"
+                                class="pr-6 pb-8 w-full lg:w-1/2"
+                                label="Extern factuurnummer" />
                     <textarea-input v-model="form.notes" :error="errors.notes" class="pr-6 pb-8 w-full"
                                     label="Notities" />
                 </div>
@@ -103,7 +103,7 @@ export default {
     props: {
         errors: Object,
         order: Object,
-        parcs: Array,
+        parks: Array,
         suppliers: Array,
     },
     remember: 'form',
@@ -113,7 +113,7 @@ export default {
             form: {
                 order_date: moment(this.order.order_date).format('YYYY-MM-DDTHH:mm:ss'),
                 reference: this.order.reference,
-                parc_id: this.order.parc_id,
+                park_id: this.order.park_id,
                 supplier_id: this.order.supplier_id,
                 internal_invoice_id: this.order.internal_invoice_id,
                 external_invoice_id: this.order.external_invoice_id,

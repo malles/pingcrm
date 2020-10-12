@@ -22,7 +22,7 @@
                             {{ supplier.name }}
                         </option>
                     </select-input>
-                    <text-input v-model="form.parc_reference" :error="errors.parc_reference" class="pr-6 pb-8 w-full"
+                    <text-input v-model="form.park_reference" :error="errors.park_reference" class="pr-6 pb-8 w-full"
                                 label="Referentie park" />
                     <text-input v-model="form.supplier_reference" :error="errors.supplier_reference" class="pr-6 pb-8 w-full"
                                 label="Referentie leverancier" />
@@ -84,7 +84,7 @@ export default {
             form: {
                 name: this.product.name,
                 supplier_id: this.product.supplier_id,
-                parc_reference: this.product.parc_reference,
+                park_reference: this.product.park_reference,
                 supplier_reference: this.product.supplier_reference,
                 cost_price: this.product.cost_price,
                 selling_price: this.product.selling_price,

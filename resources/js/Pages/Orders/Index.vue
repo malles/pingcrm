@@ -46,8 +46,8 @@
                     <td class="border-t">
                         <inertia-link class="px-6 py-4 flex items-center" :href="route('orders.edit', order.id)"
                                       tabindex="-1">
-                            <div v-if="order.parc">
-                                {{ order.parc.name }}
+                            <div v-if="order.park">
+                                {{ order.park.name }}
                             </div>
                         </inertia-link>
                     </td>

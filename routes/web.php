@@ -6,7 +6,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\SuppliersController;
-use App\Http\Controllers\ParcsController;
+use App\Http\Controllers\ParksController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -71,34 +71,34 @@ Route::put('users/{user}/restore', [UsersController::class, 'restore'])
     ->name('users.restore')
     ->middleware('auth');
 
-// Parcs
+// Parks
 
-Route::get('parken', [ParcsController::class, 'index'])
-    ->name('parcs')
+Route::get('parken', [ParksController::class, 'index'])
+    ->name('parks')
     ->middleware('remember', 'auth');
 
-Route::get('parken/nieuw', [ParcsController::class, 'create'])
-    ->name('parcs.create')
+Route::get('parken/nieuw', [ParksController::class, 'create'])
+    ->name('parks.create')
     ->middleware('auth');
 
-Route::post('parken', [ParcsController::class, 'store'])
-    ->name('parcs.store')
+Route::post('parken', [ParksController::class, 'store'])
+    ->name('parks.store')
     ->middleware('auth');
 
-Route::get('parken/{parc}/bewerk', [ParcsController::class, 'edit'])
-    ->name('parcs.edit')
+Route::get('parken/{park}/bewerk', [ParksController::class, 'edit'])
+    ->name('parks.edit')
     ->middleware('auth');
 
-Route::put('parken/{parc}', [ParcsController::class, 'update'])
-    ->name('parcs.update')
+Route::put('parken/{park}', [ParksController::class, 'update'])
+    ->name('parks.update')
     ->middleware('auth');
 
-Route::delete('parken/{parc}', [ParcsController::class, 'destroy'])
-    ->name('parcs.destroy')
+Route::delete('parken/{park}', [ParksController::class, 'destroy'])
+    ->name('parks.destroy')
     ->middleware('auth');
 
-Route::put('parken/{parc}/herstel', [ParcsController::class, 'restore'])
-    ->name('parcs.restore')
+Route::put('parken/{park}/herstel', [ParksController::class, 'restore'])
+    ->name('parks.restore')
     ->middleware('auth');
 
 // Suppliers

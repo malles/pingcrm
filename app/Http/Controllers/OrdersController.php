@@ -16,7 +16,7 @@ class OrdersController extends Controller
         return Inertia::render('Orders/Index', [
             'filters' => Request::all('search', 'trashed'),
             'orders' => Auth::user()->account->orders()
-                ->with('supplier', 'parc')
+                ->with('supplier', 'park')
                 ->orderBy('order_date', 'desc')
                 ->filter(Request::only('search', 'trashed'))
                 ->paginate()
@@ -28,7 +28,7 @@ class OrdersController extends Controller
                         'cost_price' => $order->cost_price,
                         'selling_price' => $order->selling_price,
                         'deleted_at' => $order->deleted_at,
-                        'parc' => $order->parc ? $order->parc->only('name') : null,
+                        'park' => $order->park ? $order->park->only('name') : null,
                         'supplier' => $order->supplier ? $order->supplier->only('name') : null,
                     ];
                 }),
@@ -44,8 +44,8 @@ class OrdersController extends Controller
                 ->get()
                 ->map
                 ->only('id', 'name'),
-            'parcs' => Auth::user()->account
-                ->parcs()
+            'parks' => Auth::user()->account
+                ->parks()
                 ->orderBy('name')
                 ->get()
                 ->map
@@ -57,7 +57,7 @@ class OrdersController extends Controller
     {
         Auth::user()->account->orders()->create(
             Request::validate([
-                'parc_id' => ['required', Rule::exists('parcs', 'id')->where(function ($query) {
+                'park_id' => ['required', Rule::exists('parks', 'id')->where(function ($query) {
                     $query->where('account_id', Auth::user()->account_id);
                 })],
                 'supplier_id' => ['required', Rule::exists('suppliers', 'id')->where(function ($query) {
@@ -86,7 +86,7 @@ class OrdersController extends Controller
                 'id' => $order->id,
                 'order_date' => $order->order_date,
                 'reference' => $order->reference,
-                'parc_id' => $order->parc_id,
+                'park_id' => $order->park_id,
                 'supplier_id' => $order->supplier_id,
                 'internal_invoice_id' => $order->internal_invoice_id,
                 'external_invoice_id' => $order->external_invoice_id,
@@ -105,7 +105,7 @@ class OrdersController extends Controller
                 ->get()
                 ->map
                 ->only('id', 'name'),
-            'parcs' => Auth::user()->account->parcs()
+            'parks' => Auth::user()->account->parks()
                 ->orderBy('name')
                 ->get()
                 ->map
@@ -119,7 +119,7 @@ class OrdersController extends Controller
             Request::validate([
                 'order_date' => ['required', 'date'],
                 'reference' => ['required', 'max:50'],
-                'parc_id' => ['required', Rule::exists('parcs', 'id')->where(function ($query) {
+                'park_id' => ['required', Rule::exists('parks', 'id')->where(function ($query) {
                     $query->where('account_id', Auth::user()->account_id);
                 })],
                 'supplier_id' => ['required', Rule::exists('suppliers', 'id')->where(function ($query) {

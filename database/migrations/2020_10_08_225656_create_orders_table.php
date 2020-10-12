@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('account_id')->index();
-            $table->integer('parc_id')->index();
+            $table->integer('park_id')->index();
             $table->integer('supplier_id')->index();
             $table->timestamp('order_date')->nullable();
             $table->string('reference', 50);

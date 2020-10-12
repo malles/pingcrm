@@ -9,9 +9,9 @@ class Account extends Model
         return $this->hasMany(User::class);
     }
 
-    public function parcs()
+    public function parks()
     {
-        return $this->hasMany(Parc::class);
+        return $this->hasMany(Park::class);
     }
 
     public function suppliers()

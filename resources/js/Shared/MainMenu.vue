@@ -7,7 +7,7 @@
       </inertia-link>
     </div>
     <div class="mb-4">
-      <inertia-link class="flex items-center group py-3" :href="route('parcs')">
+      <inertia-link class="flex items-center group py-3" :href="route('parks')">
         <icon :icon="['fad', 'house-day']" class="w-4 h-4 mr-2" :class="isUrl('parken') ? 'text-white' : 'text-indigo-400 group-hover:text-white'" />
         <div :class="isUrl('parken') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Parken</div>
       </inertia-link>

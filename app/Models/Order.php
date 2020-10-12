@@ -28,9 +28,9 @@ class Order extends Model
 
     }
 
-    public function parc()
+    public function park()
     {
-        return $this->belongsTo(Parc::class);
+        return $this->belongsTo(Park::class);
     }
 
     public function supplier()

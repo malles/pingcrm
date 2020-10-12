@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Parc;
+use App\Models\Park;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
-class ParcsController extends Controller
+class ParksController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Parcs/Index', [
+        return Inertia::render('Parks/Index', [
             'filters' => Request::all('search', 'trashed'),
-            'parcs' => Auth::user()->account->parcs()
+            'parks' => Auth::user()->account->parks()
                 ->orderBy('name')
                 ->filter(Request::only('search', 'trashed'))
                 ->paginate()
@@ -24,12 +24,12 @@ class ParcsController extends Controller
 
     public function create()
     {
-        return Inertia::render('Parcs/Create');
+        return Inertia::render('Parks/Create');
     }
 
     public function store()
     {
-        Auth::user()->account->parcs()->create(
+        Auth::user()->account->parks()->create(
             Request::validate([
                 'code' => ['required', 'max:32'],
                 'name' => ['required', 'max:100'],
@@ -44,32 +44,32 @@ class ParcsController extends Controller
             ])
         );
 
-        return Redirect::route('parcs')->with('success', 'Park aangemaakt.');
+        return Redirect::route('parks')->with('success', 'Park aangemaakt.');
     }
 
-    public function edit(Parc $parc)
+    public function edit(Park $park)
     {
-        return Inertia::render('Parcs/Edit', [
-            'parc' => [
-                'id' => $parc->id,
-                'code' => $parc->code,
-                'name' => $parc->name,
-                'address' => $parc->address,
-                'postal_code' => $parc->postal_code,
-                'city' => $parc->city,
-                'country' => $parc->country,
-                'contact' => $parc->contact,
-                'email' => $parc->email,
-                'phone' => $parc->phone,
-                'notes' => $parc->notes,
-                'deleted_at' => $parc->deleted_at,
+        return Inertia::render('Parks/Edit', [
+            'park' => [
+                'id' => $park->id,
+                'code' => $park->code,
+                'name' => $park->name,
+                'address' => $park->address,
+                'postal_code' => $park->postal_code,
+                'city' => $park->city,
+                'country' => $park->country,
+                'contact' => $park->contact,
+                'email' => $park->email,
+                'phone' => $park->phone,
+                'notes' => $park->notes,
+                'deleted_at' => $park->deleted_at,
             ],
         ]);
     }
 
-    public function update(Parc $parc)
+    public function update(Park $park)
     {
-        $parc->update(
+        $park->update(
             Request::validate([
                 'code' => ['required', 'max:32'],
                 'name' => ['required', 'max:100'],
@@ -87,16 +87,16 @@ class ParcsController extends Controller
         return Redirect::back()->with('success', 'Park opgeslagen.');
     }
 
-    public function destroy(Parc $parc)
+    public function destroy(Park $park)
     {
-        $parc->delete();
+        $park->delete();
 
         return Redirect::back()->with('success', 'Park verwijderd.');
     }
 
-    public function restore(Parc $parc)
+    public function restore(Park $park)
     {
-        $parc->restore();
+        $park->restore();
 
         return Redirect::back()->with('success', 'Park hersteld.');
     }
