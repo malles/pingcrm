@@ -61,7 +61,8 @@ class SuppliersController extends Controller
                 'phone' => $supplier->phone,
                 'notes' => $supplier->notes,
                 'deleted_at' => $supplier->deleted_at,
-//                'contacts' => $supplier->contacts()->orderByName()->get()->map->only('id', 'name', 'city', 'phone'),
+                'products' => $supplier->products()->orderBy('name')->get()
+                    ->map->only('id', 'name', 'cost_price', 'selling_price'),
             ],
         ]);
     }
