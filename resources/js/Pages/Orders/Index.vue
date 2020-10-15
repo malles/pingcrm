@@ -19,10 +19,11 @@
             <table class="w-full whitespace-no-wrap">
                 <tr class="text-left font-bold">
                     <th class="px-6 pt-6 pb-4">Datum</th>
-                    <th class="px-6 pt-6 pb-4">Nummer</th>
-                    <th class="px-6 pt-6 pb-4">Park Nummer</th>
+                    <th class="px-6 pt-6 pb-4">Ordernummer</th>
+                    <th class="px-6 pt-6 pb-4">Park Ordernummer</th>
                     <th class="px-6 pt-6 pb-4">Park</th>
                     <th class="px-6 pt-6 pb-4">Leverancier</th>
+                    <th class="px-6 pt-6 pb-4">products</th>
                     <th class="px-6 pt-6 pb-4">Kostprijs</th>
                     <th class="px-6 pt-6 pb-4" colspan="2">Verkoopprijs</th>
                 </tr>
@@ -59,8 +60,16 @@
                     <td class="border-t">
                         <inertia-link class="px-6 py-4 flex items-center" :href="route('orders.edit', order.id)"
                                       tabindex="-1">
-                            <div v-if="order.supplier">
+                            <div v-if="order.supplier" class="w-24 truncate">
                                 {{ order.supplier.name }}
+                            </div>
+                        </inertia-link>
+                    </td>
+                    <td class="border-t">
+                        <inertia-link class="px-6 py-4 flex items-center" :href="route('orders.edit', order.id)"
+                                      tabindex="-1">
+                            <div v-if="order.products" class="w-24 truncate">
+                                {{ order.products }}
                             </div>
                         </inertia-link>
                     </td>

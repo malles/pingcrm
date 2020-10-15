@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Supplier extends Model
 {
     use SoftDeletes;
 
-    public function products()
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }

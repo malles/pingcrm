@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Concerns\UpdatesRelations;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -11,12 +12,15 @@ use Inertia\Inertia;
 
 class OrdersController extends Controller
 {
+
+    use UpdatesRelations;
+
     public function index()
     {
         return Inertia::render('Orders/Index', [
             'filters' => Request::all('search', 'trashed'),
             'orders' => Auth::user()->account->orders()
-                ->with('supplier', 'park')
+                ->with('supplier', 'park', 'orderProducts')
                 ->orderBy('reference', 'desc')
                 ->filter(Request::only('search', 'trashed'))
                 ->paginate()
@@ -31,6 +35,7 @@ class OrdersController extends Controller
                         'deleted_at' => $order->deleted_at,
                         'park' => $order->park ? $order->park->only('code') : null,
                         'supplier' => $order->supplier ? $order->supplier->only('name') : null,
+                        'products' => $order->orderProducts->pluck('name')->join(', '),
                     ];
                 }),
         ]);
@@ -64,7 +69,7 @@ class OrdersController extends Controller
 
     public function store()
     {
-        Auth::user()->account->orders()->create(
+        $order = Auth::user()->account->orders()->create(
             Request::validate([
                 'park_reference' => ['required', 'max:50'],
                 'park_id' => ['required', Rule::exists('parks', 'id')->where(function ($query) {
@@ -73,16 +78,24 @@ class OrdersController extends Controller
                 'supplier_id' => ['required', Rule::exists('suppliers', 'id')->where(function ($query) {
                     $query->where('account_id', Auth::user()->account_id);
                 })],
-                'cost_price' => ['nullable', 'numeric'],
+                'cost_price' => ['required', 'numeric'],
                 'carriage_price' => ['nullable', 'numeric'],
-                'selling_price' => ['nullable', 'numeric'],
-                'vat' => ['nullable', 'numeric'],
-                'internal_invoice_id' => ['nullable', 'max:50'],
-                'external_invoice_id' => ['nullable', 'max:50'],
-                'invoiced_at' => ['nullable', 'date'],
+                'selling_price' => ['required', 'numeric'],
+                'vat' => ['required', 'numeric'],
                 'notes' => ['nullable'],
             ])
         );
+        ['order_products' => $orderProducts,] = Request::validate([
+            'order_products' => ['required', 'array'],
+            'order_products.*quantity' => ['required', 'int'],
+            'order_products.*name' => ['required', 'string'],
+            'order_products.*park_reference' => ['nullable', 'max:100'],
+            'order_products.*supplier_reference' => ['nullable', 'max:100'],
+            'order_products.*cost_price' => ['required', 'numeric'],
+            'order_products.*selling_price' => ['required', 'numeric'],
+            'order_products.*vat' => ['required', 'numeric'],
+        ]);
+        $order->orderProducts()->createMany($orderProducts);
 
         return Redirect::route('orders')->with('success', 'Order aangemaakt.');
     }
@@ -106,7 +119,11 @@ class OrdersController extends Controller
                 'invoiced_at' => $order->invoiced_at,
                 'notes' => $order->notes,
                 'deleted_at' => $order->deleted_at,
-            ],
+                'order_products' => $order->orderProducts()
+                    ->orderBy('id')
+                    ->get()
+                    ->all(),
+       ],
             'suppliers' => Auth::user()->account->suppliers()
                 ->orderBy('name')
                 ->get()
@@ -151,6 +168,16 @@ class OrdersController extends Controller
                 'notes' => ['nullable'],
             ])
         );
+        $this->updateOneToMany($order, 'orderProducts', Request::validate([
+            'order_products' => ['required', 'array'],
+            'order_products.*quantity' => ['required', 'int'],
+            'order_products.*name' => ['required', 'string'],
+            'order_products.*park_reference' => ['nullable', 'max:100'],
+            'order_products.*supplier_reference' => ['nullable', 'max:100'],
+            'order_products.*cost_price' => ['required', 'numeric'],
+            'order_products.*selling_price' => ['required', 'numeric'],
+            'order_products.*vat' => ['required', 'numeric'],
+        ]));
 
         return Redirect::back()->with('success', 'Order opgeslagen.');
     }
