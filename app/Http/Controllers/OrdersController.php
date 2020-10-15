@@ -17,7 +17,7 @@ class OrdersController extends Controller
             'filters' => Request::all('search', 'trashed'),
             'orders' => Auth::user()->account->orders()
                 ->with('supplier', 'park')
-                ->orderBy('ordered_at', 'desc')
+                ->orderBy('reference', 'desc')
                 ->filter(Request::only('search', 'trashed'))
                 ->paginate()
                 ->transform(function ($order) {
@@ -74,6 +74,7 @@ class OrdersController extends Controller
                     $query->where('account_id', Auth::user()->account_id);
                 })],
                 'cost_price' => ['nullable', 'numeric'],
+                'carriage_price' => ['nullable', 'numeric'],
                 'selling_price' => ['nullable', 'numeric'],
                 'vat' => ['nullable', 'numeric'],
                 'internal_invoice_id' => ['nullable', 'max:50'],
@@ -99,6 +100,7 @@ class OrdersController extends Controller
                 'internal_invoice_id' => $order->internal_invoice_id,
                 'external_invoice_id' => $order->external_invoice_id,
                 'cost_price' => $order->cost_price,
+                'carriage_price' => $order->carriage_price,
                 'selling_price' => $order->selling_price,
                 'vat' => $order->vat,
                 'invoiced_at' => $order->invoiced_at,
@@ -132,7 +134,7 @@ class OrdersController extends Controller
             Request::validate([
                 'ordered_at' => ['required', 'date'],
                 'park_reference' => ['required', 'max:50'],
-                'reference' => ['required', 'max:50'],
+                'reference' => ['required', 'max:50', Rule::unique('orders')->ignore($order->id),],
                 'park_id' => ['required', Rule::exists('parks', 'id')->where(function ($query) {
                     $query->where('account_id', Auth::user()->account_id);
                 })],
@@ -140,6 +142,7 @@ class OrdersController extends Controller
                     $query->where('account_id', Auth::user()->account_id);
                 })],
                 'cost_price' => ['nullable', 'numeric'],
+                'carriage_price' => ['nullable', 'numeric'],
                 'selling_price' => ['nullable', 'numeric'],
                 'vat' => ['nullable', 'numeric'],
                 'internal_invoice_id' => ['nullable', 'max:50'],

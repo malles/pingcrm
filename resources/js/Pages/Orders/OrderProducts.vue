@@ -43,7 +43,6 @@
                     <small class="w-32">Inkoopprijs</small>
                     <small class="w-32">Verkoopprijs</small>
                     <small class="w-32">BTW</small>
-                    <small class="w-24">Totaal</small>
                     <span class="w-10"></span>
                 </li>
                 <li v-for="orderProduct in value" :key="orderProduct.id"
@@ -64,9 +63,6 @@
                     </div>
                     <div class="w-32 pr-2">
                         <input v-model="orderProduct.vat" type="number" class="form-input" step="0.01" />
-                    </div>
-                    <div class="w-24 flex justify-end items-center">
-                        <span>{{ orderProduct.quantity * orderProduct.selling_price | currency }}</span>
                     </div>
                     <div class="w-10 flex justify-center items-center">
                         <a class="cursor-pointer" @click="removeProduct(orderProduct)">

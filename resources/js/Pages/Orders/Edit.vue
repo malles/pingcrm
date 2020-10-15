@@ -39,15 +39,16 @@
                                            :products="supplierProducts"
                                            label="Produkten"
                                            class="pr-6 pb-8 w-full" />
-                            <text-input v-model="form.cost_price" :error="errors.cost_price"
-                                        type="number" step="0.01" class="pr-6 pb-8 w-full lg:w-1/3"
-                                        label="Inkoopprijs" />
-                            <text-input v-model="form.selling_price" :error="errors.selling_price"
-                                        type="number" step="0.01" class="pr-6 pb-8 w-full lg:w-1/3"
-                                        label="Verkoopprijs" />
-                            <text-input v-model="form.vat" :error="errors.vat"
-                                        type="number" step="0.01" class="pr-6 pb-8 w-full lg:w-1/3"
-                                        label="BTW" />
+                            <div class="pr-6 pb-8 grid grid-cols-4 gap-4 w-full">
+                                <div class="col-span-3 flex items-center justify-end">Vrachtkosten:</div>
+                                <div>
+                                    <text-input v-model="form.carriage_price" :error="errors.carriage_price"
+                                                type="number" step="0.01"
+                                                class="w-full"/>
+                                </div>
+                            </div>
+                            <OrderTotals :order="form" />
+                            <hr class="my-4 mr-6 border-t w-full" />
                             <text-input v-model="form.invoiced_at" :error="errors.invoiced_at"
                                         type="date" class="pr-6 pb-8 w-full lg:w-1/3"
                                         label="Gefactureerd op" />
@@ -90,6 +91,7 @@ import SelectInput from '@/Shared/SelectInput';
 import TextInput from '@/Shared/TextInput';
 import TrashedMessage from '@/Shared/TrashedMessage';
 import TextareaInput from '@/Shared/TextareaInput';
+import OrderTotals from '@/Pages/Orders/OrderTotals';
 import OrderProducts from '@/Pages/Orders/OrderProducts';
 import {orderProductsTotals,} from '@/Util';
 
@@ -103,6 +105,7 @@ export default {
     layout: Layout,
 
     components: {
+        OrderTotals,
         OrderProducts,
         LoadingButton,
         SelectInput,
@@ -133,9 +136,10 @@ export default {
                 internal_invoice_id: this.order.internal_invoice_id,
                 external_invoice_id: this.order.external_invoice_id,
                 cost_price: this.order.cost_price,
+                carriage_price: this.order.carriage_price || 0,
                 selling_price: this.order.selling_price,
                 vat: this.order.vat,
-                invoiced_at: moment(this.order.invoiced_at).format('YYYY-MM-DD'),
+                invoiced_at: this.order.invoiced_at ? moment(this.order.invoiced_at).format('YYYY-MM-DD') : null,
                 notes: this.order.notes,
                 order_products: this.order.order_products || [],
             },
@@ -150,17 +154,23 @@ export default {
 
     watch: {
         'form.order_products': {
-            handler(orderProducts) {
-                const {cost_price, selling_price, vat,} = orderProductsTotals(orderProducts);
-                this.form.cost_price = cost_price;
-                this.form.selling_price = selling_price;
-                this.form.vat = vat;
+            handler() {
+                this.setTotals();
             },
             deep: true,
+        },
+        'form.carriage_price'() {
+            this.setTotals();
         },
     },
 
     methods: {
+        setTotals() {
+            const {cost_price, selling_price, vat,} = orderProductsTotals(this.form.order_products);
+            this.form.cost_price = cost_price;
+            this.form.selling_price = selling_price + Number(this.form.carriage_price);
+            this.form.vat = vat;
+        },
         submit() {
             this.$inertia.put(this.route('orders.update', this.order.id), this.form, {
                 onStart: () => this.sending = true,

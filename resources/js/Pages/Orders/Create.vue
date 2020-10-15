@@ -31,18 +31,19 @@
                                    label="Produkten toevoegen"
                                    class="pr-6 pb-8 w-full"
                                    auto-add />
-                    <div v-else class="pr-6 pb-8 w-full">
+                    <div v-else class="pr-6 pb-8 w-full text-orange-500 text-center">
+                        <Icon :icon="['far', 'lightbulb-on',]" class="mr-2" />
                         Kies eerst park en leverancier.
                     </div>
-                    <text-input v-model="form.cost_price" :error="errors.cost_price"
-                                type="number" step="0.01" class="pr-6 pb-8 w-full lg:w-1/3"
-                                label="Inkoopprijs" />
-                    <text-input v-model="form.selling_price" :error="errors.selling_price"
-                                type="number" step="0.01" class="pr-6 pb-8 w-full lg:w-1/3"
-                                label="Verkoopprijs" />
-                    <text-input v-model="form.vat" :error="errors.vat"
-                                type="number" step="0.01" class="pr-6 pb-8 w-full lg:w-1/3"
-                                label="BTW" />
+                    <div class="pr-6 pb-8 grid grid-cols-4 gap-4 w-full">
+                        <div class="col-span-3 flex items-center justify-end">Vrachtkosten:</div>
+                        <div>
+                            <text-input v-model="form.carriage_price" :error="errors.carriage_price"
+                                        type="number" step="0.01"
+                                        class="w-full" />
+                        </div>
+                    </div>
+                    <OrderTotals :order="form" />
                 </div>
                 <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center">
                     <loading-button :loading="sending" class="btn-indigo" type="submit">
@@ -59,6 +60,7 @@ import Layout from '@/Shared/Layout';
 import LoadingButton from '@/Shared/LoadingButton';
 import SelectInput from '@/Shared/SelectInput';
 import TextInput from '@/Shared/TextInput';
+import OrderTotals from '@/Pages/Orders/OrderTotals';
 import OrderProducts from '@/Pages/Orders/OrderProducts';
 import {orderProductsTotals,} from '@/Util';
 
@@ -69,6 +71,7 @@ export default {
     layout: Layout,
 
     components: {
+        OrderTotals,
         OrderProducts,
         LoadingButton,
         SelectInput,
@@ -91,6 +94,7 @@ export default {
                 park_id: null,
                 supplier_id: null,
                 cost_price: 0,
+                carriage_price: 0,
                 selling_price: 0,
                 vat: 0,
                 order_products: [],
@@ -106,17 +110,23 @@ export default {
 
     watch: {
         'form.order_products': {
-            handler(orderProducts) {
-                const {cost_price, selling_price, vat,} = orderProductsTotals(orderProducts);
-                this.form.cost_price = cost_price;
-                this.form.selling_price = selling_price;
-                this.form.vat = vat;
+            handler() {
+                this.setTotals();
             },
             deep: true,
+        },
+        'form.carriage_price'() {
+            this.setTotals();
         },
     },
 
     methods: {
+        setTotals() {
+            const {cost_price, selling_price, vat,} = orderProductsTotals(this.form.order_products);
+            this.form.cost_price = cost_price;
+            this.form.selling_price = selling_price + Number(this.form.carriage_price);
+            this.form.vat = vat;
+        },
         submit() {
             this.$inertia.post(this.route('orders.store'), this.form, {
                 onStart: () => this.sending = true,

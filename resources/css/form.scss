@@ -17,6 +17,9 @@
     @apply .text-gray-500 .opacity-100;
   }
 }
+.form-input[type=number] {
+    text-align: right;
+}
 
 .form-select {
   @apply .pr-6;

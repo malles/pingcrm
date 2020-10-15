@@ -11,6 +11,7 @@ class Order extends Model
 
     protected $casts = [
         'cost_price' => 'float',
+        'carriage_price' => 'float',
         'selling_price' => 'float',
         'vat' => 'float',
     ];

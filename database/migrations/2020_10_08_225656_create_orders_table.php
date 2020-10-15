@@ -19,9 +19,10 @@ class CreateOrdersTable extends Migration
             $table->integer('park_id')->index();
             $table->integer('supplier_id')->index();
             $table->date('ordered_at')->nullable();
-            $table->string('park_reference', 50)->index();
+            $table->string('park_reference', 50)->unique()->index();
             $table->string('reference', 50);
             $table->decimal('cost_price')->nullable();
+            $table->decimal('carriage_price')->nullable();
             $table->decimal('selling_price')->nullable();
             $table->decimal('vat')->nullable();
             $table->string('internal_invoice_id', 50)->nullable();
