@@ -22,5 +22,6 @@ $factory->define(App\Models\Product::class, function (Faker $faker) {
         'supplier_reference' => $faker->postcode,
         'cost_price' => $cost_price,
         'selling_price' => $cost_price * (1 + ($faker->numberBetween(5, 60) / 100)),
+        'vat' => 0,
     ];
 });

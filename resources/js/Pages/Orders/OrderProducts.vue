@@ -106,12 +106,11 @@ export default {
     },
 
     methods: {
-        addProduct({id, name, cost_price, selling_price, park_reference, supplier_reference,}) {
+        addProduct({id, name, cost_price, selling_price, vat, park_reference, supplier_reference,}) {
             this.$emit('input', [...this.value, {
-                name, cost_price, selling_price, park_reference, supplier_reference,
+                name, cost_price, selling_price, vat, park_reference, supplier_reference,
                 product_id: id,
                 quantity: 1,
-                vat: 0,
             },]);
         },
         removeProduct(product) {

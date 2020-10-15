@@ -57,7 +57,7 @@ class OrdersController extends Controller
                 ->map
                 ->only([
                     'id', 'supplier_id', 'name', 'park_reference', 'supplier_reference',
-                    'cost_price', 'selling_price',
+                    'cost_price', 'selling_price', 'vat',
                 ]),
         ]);
     }
@@ -123,7 +123,7 @@ class OrdersController extends Controller
                 ->map
                 ->only([
                     'id', 'supplier_id', 'name', 'park_reference', 'supplier_reference',
-                    'cost_price', 'selling_price',
+                    'cost_price', 'selling_price', 'vat',
                 ]),
         ]);
     }

@@ -27,11 +27,14 @@
                     <text-input v-model="form.supplier_reference" :error="errors.supplier_reference" class="pr-6 pb-8 w-full"
                                 label="Referentie leverancier" />
                     <text-input v-model="form.cost_price" :error="errors.cost_price"
-                                type="number" step="0.01" class="pr-6 pb-8 w-full lg:w-1/2"
+                                type="number" step="0.01" class="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Inkoopprijs" />
                     <text-input v-model="form.selling_price" :error="errors.selling_price"
-                                type="number" step="0.01" class="pr-6 pb-8 w-full lg:w-1/2"
+                                type="number" step="0.01" class="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Verkoopprijs" />
+                    <text-input v-model="form.vat" :error="errors.vat"
+                                type="number" step="0.01" class="pr-6 pb-8 w-full lg:w-1/3"
+                                label="BTW" />
                     <textarea-input v-model="form.notes" :error="errors.notes" class="pr-6 pb-8 w-full"
                                     label="Notities" />
                 </div>
@@ -88,6 +91,7 @@ export default {
                 supplier_reference: this.product.supplier_reference,
                 cost_price: this.product.cost_price,
                 selling_price: this.product.selling_price,
+                vat: this.product.vat,
                 notes: this.product.notes,
             },
         };

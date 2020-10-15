@@ -17,6 +17,7 @@ class ProductsController extends Controller
             'filters' => Request::all('search', 'trashed'),
             'products' => Auth::user()->account->products()
                 ->with('supplier')
+                ->orderBy('name')
                 ->filter(Request::only('search', 'trashed'))
                 ->paginate()
                 ->transform(function ($product) {
@@ -56,6 +57,7 @@ class ProductsController extends Controller
                 'supplier_reference' => ['nullable', 'max:100'],
                 'cost_price' => ['nullable', 'numeric'],
                 'selling_price' => ['nullable', 'numeric'],
+                'vat' => ['nullable', 'numeric'],
                 'notes' => ['nullable'],
             ])
         );
@@ -74,6 +76,7 @@ class ProductsController extends Controller
                 'supplier_reference' => $product->supplier_reference,
                 'cost_price' => $product->cost_price,
                 'selling_price' => $product->selling_price,
+                'vat' => $product->vat,
                 'notes' => $product->notes,
                 'deleted_at' => $product->deleted_at,
             ],
@@ -96,6 +99,7 @@ class ProductsController extends Controller
                 'park_reference' => ['nullable', 'max:100'],
                 'supplier_reference' => ['nullable', 'max:100'],
                 'cost_price' => ['nullable', 'numeric'],
+                'vat' => ['nullable', 'numeric'],
                 'selling_price' => ['nullable', 'numeric'],
                 'notes' => ['nullable'],
             ])

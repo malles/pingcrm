@@ -11,6 +11,7 @@ class Product extends Model
     protected $casts = [
         'cost_price' => 'float',
         'selling_price' => 'float',
+        'vat' => 'float',
     ];
 
     public function supplier()
