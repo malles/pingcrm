@@ -31,7 +31,7 @@
                     <td class="border-t">
                         <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500"
                                       :href="route('orders.edit', order.id)">
-                            {{ order.order_date | date }}
+                            {{ order.ordered_at | date }}
                             <icon v-if="order.deleted_at" :icon="['far', 'trash-alt']"
                                   class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" />
                         </inertia-link>
@@ -52,7 +52,7 @@
                         <inertia-link class="px-6 py-4 flex items-center" :href="route('orders.edit', order.id)"
                                       tabindex="-1">
                             <div v-if="order.park">
-                                {{ order.park.name }}
+                                {{ order.park.code }}
                             </div>
                         </inertia-link>
                     </td>
@@ -84,7 +84,7 @@
                     </td>
                 </tr>
                 <tr v-if="orders.data.length === 0">
-                    <td class="border-t px-6 py-4" colspan="6">Geen orders gevonden.</td>
+                    <td class="border-t px-6 py-4" colspan="7">Geen orders gevonden.</td>
                 </tr>
             </table>
         </div>

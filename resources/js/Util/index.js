@@ -1,15 +1,20 @@
-
+function toCents(price) {
+    return Math.round(price * 100);
+}
+function fromCents(price) {
+    return Math.round(price) / 100;
+}
 
 export function orderProductsTotals(orderProducts) {
     let cost_price = 0;
     let selling_price = 0;
     let vat = 0;
     orderProducts.forEach(orderProduct => {
-        cost_price += orderProduct.quantity * orderProduct.cost_price;
-        selling_price += orderProduct.quantity * orderProduct.selling_price;
-        vat += orderProduct.vat;
+        cost_price += orderProduct.quantity * toCents(orderProduct.cost_price);
+        selling_price += orderProduct.quantity * toCents(orderProduct.selling_price);
+        vat += toCents(orderProduct.vat);
     });
-    return {cost_price, selling_price, vat,};
+    return {cost_price: fromCents(cost_price), selling_price: fromCents(selling_price), vat: fromCents(vat),};
 }
 
 export function arrayWithReplacedItem(array, index, item) {

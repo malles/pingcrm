@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->integer('account_id')->index();
             $table->integer('park_id')->index();
             $table->integer('supplier_id')->index();
-            $table->timestamp('order_date')->nullable();
+            $table->date('ordered_at')->nullable();
             $table->string('park_reference', 50)->index();
             $table->string('reference', 50);
             $table->decimal('cost_price')->nullable();
@@ -26,10 +26,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('vat')->nullable();
             $table->string('internal_invoice_id', 50)->nullable();
             $table->string('external_invoice_id', 50)->nullable();
-            $table->timestamp('ordered_at')->nullable();
-            $table->timestamp('shipped_at')->nullable();
-            $table->timestamp('received_at')->nullable();
-            $table->timestamp('invoiced_at')->nullable();
+            $table->date('invoiced_at')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
             $table->softDeletes();

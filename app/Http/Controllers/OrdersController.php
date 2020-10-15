@@ -17,19 +17,19 @@ class OrdersController extends Controller
             'filters' => Request::all('search', 'trashed'),
             'orders' => Auth::user()->account->orders()
                 ->with('supplier', 'park')
-                ->orderBy('order_date', 'desc')
+                ->orderBy('ordered_at', 'desc')
                 ->filter(Request::only('search', 'trashed'))
                 ->paginate()
                 ->transform(function ($order) {
                     return [
                         'id' => $order->id,
-                        'order_date' => $order->order_date,
+                        'ordered_at' => $order->ordered_at,
                         'reference' => $order->reference,
                         'park_reference' => $order->park_reference,
                         'cost_price' => $order->cost_price,
                         'selling_price' => $order->selling_price,
                         'deleted_at' => $order->deleted_at,
-                        'park' => $order->park ? $order->park->only('name') : null,
+                        'park' => $order->park ? $order->park->only('code') : null,
                         'supplier' => $order->supplier ? $order->supplier->only('name') : null,
                     ];
                 }),
@@ -78,9 +78,6 @@ class OrdersController extends Controller
                 'vat' => ['nullable', 'numeric'],
                 'internal_invoice_id' => ['nullable', 'max:50'],
                 'external_invoice_id' => ['nullable', 'max:50'],
-                'ordered_at' => ['nullable', 'date'],
-                'shipped_at' => ['nullable', 'date'],
-                'received_at' => ['nullable', 'date'],
                 'invoiced_at' => ['nullable', 'date'],
                 'notes' => ['nullable'],
             ])
@@ -94,7 +91,7 @@ class OrdersController extends Controller
         return Inertia::render('Orders/Edit', [
             'order' => [
                 'id' => $order->id,
-                'order_date' => $order->order_date,
+                'ordered_at' => $order->ordered_at,
                 'park_reference' => $order->park_reference,
                 'reference' => $order->reference,
                 'park_id' => $order->park_id,
@@ -104,9 +101,6 @@ class OrdersController extends Controller
                 'cost_price' => $order->cost_price,
                 'selling_price' => $order->selling_price,
                 'vat' => $order->vat,
-                'ordered_at' => $order->ordered_at,
-                'shipped_at' => $order->shipped_at,
-                'received_at' => $order->received_at,
                 'invoiced_at' => $order->invoiced_at,
                 'notes' => $order->notes,
                 'deleted_at' => $order->deleted_at,
@@ -125,7 +119,10 @@ class OrdersController extends Controller
                 ->orderBy('name')
                 ->get()
                 ->map
-                ->only('id', 'name'),
+                ->only([
+                    'id', 'supplier_id', 'name', 'park_reference', 'supplier_reference',
+                    'cost_price', 'selling_price',
+                ]),
         ]);
     }
 
@@ -133,7 +130,7 @@ class OrdersController extends Controller
     {
         $order->update(
             Request::validate([
-                'order_date' => ['required', 'date'],
+                'ordered_at' => ['required', 'date'],
                 'park_reference' => ['required', 'max:50'],
                 'reference' => ['required', 'max:50'],
                 'park_id' => ['required', Rule::exists('parks', 'id')->where(function ($query) {
@@ -147,9 +144,6 @@ class OrdersController extends Controller
                 'vat' => ['nullable', 'numeric'],
                 'internal_invoice_id' => ['nullable', 'max:50'],
                 'external_invoice_id' => ['nullable', 'max:50'],
-                'ordered_at' => ['nullable', 'date'],
-                'shipped_at' => ['nullable', 'date'],
-                'received_at' => ['nullable', 'date'],
                 'invoiced_at' => ['nullable', 'date'],
                 'notes' => ['nullable'],
             ])

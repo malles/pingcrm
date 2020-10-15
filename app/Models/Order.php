@@ -15,7 +15,7 @@ class Order extends Model
         'vat' => 'float',
     ];
 
-    protected $dates = ['order_date', 'ordered_at', 'shipped_at', 'received_at', 'invoiced_at',];
+    protected $dates = ['ordered_at', 'invoiced_at',];
 
     protected static function boot ()
     {
@@ -23,7 +23,7 @@ class Order extends Model
         static::creating(function (Order $order) {
             $last = Order::orderBy('reference', 'desc')->first();
             $order->attributes['reference'] = $last ? ++$last->reference : 1;
-            $order->attributes['order_date'] = Carbon::now();
+            $order->attributes['ordered_at'] = Carbon::now();
         });
 
     }

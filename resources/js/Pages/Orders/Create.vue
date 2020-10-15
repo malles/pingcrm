@@ -6,7 +6,7 @@
             </inertia-link>
             <span class="text-indigo-400 font-medium">/</span> Nieuw
         </h1>
-        <div class="bg-white rounded shadow overflow-hidden max-w-6xl">
+        <div class="bg-white rounded shadow overflow-hidden max-w-4xl">
             <form @submit.prevent="submit">
                 <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
                     <text-input v-model="form.park_reference" :error="errors.park_reference"
@@ -107,13 +107,15 @@ export default {
     watch: {
         'form.order_products': {
             handler(orderProducts) {
-                const {cost_price, selling_price,} = orderProductsTotals(orderProducts);
+                const {cost_price, selling_price, vat,} = orderProductsTotals(orderProducts);
                 this.form.cost_price = cost_price;
                 this.form.selling_price = selling_price;
+                this.form.vat = vat;
             },
             deep: true,
         },
     },
+
     methods: {
         submit() {
             this.$inertia.post(this.route('orders.store'), this.form, {
