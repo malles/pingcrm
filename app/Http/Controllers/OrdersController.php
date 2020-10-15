@@ -25,6 +25,7 @@ class OrdersController extends Controller
                         'id' => $order->id,
                         'order_date' => $order->order_date,
                         'reference' => $order->reference,
+                        'park_reference' => $order->park_reference,
                         'cost_price' => $order->cost_price,
                         'selling_price' => $order->selling_price,
                         'deleted_at' => $order->deleted_at,
@@ -65,6 +66,7 @@ class OrdersController extends Controller
     {
         Auth::user()->account->orders()->create(
             Request::validate([
+                'park_reference' => ['required', 'max:50'],
                 'park_id' => ['required', Rule::exists('parks', 'id')->where(function ($query) {
                     $query->where('account_id', Auth::user()->account_id);
                 })],
@@ -93,6 +95,7 @@ class OrdersController extends Controller
             'order' => [
                 'id' => $order->id,
                 'order_date' => $order->order_date,
+                'park_reference' => $order->park_reference,
                 'reference' => $order->reference,
                 'park_id' => $order->park_id,
                 'supplier_id' => $order->supplier_id,
@@ -131,6 +134,7 @@ class OrdersController extends Controller
         $order->update(
             Request::validate([
                 'order_date' => ['required', 'date'],
+                'park_reference' => ['required', 'max:50'],
                 'reference' => ['required', 'max:50'],
                 'park_id' => ['required', Rule::exists('parks', 'id')->where(function ($query) {
                     $query->where('account_id', Auth::user()->account_id);

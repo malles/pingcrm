@@ -9,6 +9,9 @@
         <div class="bg-white rounded shadow overflow-hidden max-w-6xl">
             <form @submit.prevent="submit">
                 <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
+                    <text-input v-model="form.park_reference" :error="errors.park_reference"
+                                class="pr-6 pb-8 w-full"
+                                label="Park ordernummer" />
                     <select-input v-model="form.park_id" :error="errors.park_id"
                                   class="pr-6 pb-8 w-full lg:w-1/2" label="Park">
                         <option :value="null">Maak een keuze</option>

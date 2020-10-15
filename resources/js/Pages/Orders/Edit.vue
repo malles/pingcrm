@@ -13,10 +13,13 @@
         <div class="bg-white rounded shadow overflow-hidden max-w-3xl">
             <form @submit.prevent="submit">
                 <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
-                    <text-input v-model="form.reference" :error="errors.reference" class="pr-6 pb-8 w-full lg:w-1/2"
-                                label="Ordernummer" />
+                    <text-input v-model="form.reference" :error="errors.reference" class="pr-6 pb-8 w-full lg:w-1/3"
+                                label="ACO ordernummer" />
+                    <text-input v-model="form.park_reference" :error="errors.park_reference"
+                                class="pr-6 pb-8 w-full lg:w-1/3"
+                                label="Park ordernummer" />
                     <text-input v-model="form.order_date" :error="errors.order_date"
-                                type="datetime-local" class="pr-6 pb-8 w-full lg:w-1/2"
+                                type="datetime-local" class="pr-6 pb-8 w-full lg:w-1/3"
                                 label="Datum" />
                     <select-input v-model="form.park_id" :error="errors.park_id"
                                   class="pr-6 pb-8 w-full lg:w-1/2" label="Park">

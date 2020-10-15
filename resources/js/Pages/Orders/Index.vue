@@ -20,6 +20,7 @@
                 <tr class="text-left font-bold">
                     <th class="px-6 pt-6 pb-4">Datum</th>
                     <th class="px-6 pt-6 pb-4">Nummer</th>
+                    <th class="px-6 pt-6 pb-4">Park Nummer</th>
                     <th class="px-6 pt-6 pb-4">Park</th>
                     <th class="px-6 pt-6 pb-4">Leverancier</th>
                     <th class="px-6 pt-6 pb-4">Kostprijs</th>
@@ -39,8 +40,12 @@
                         <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500"
                                       :href="route('orders.edit', order.id)">
                             {{ order.reference }}
-                            <icon v-if="order.deleted_at" :icon="['far', 'trash-alt']"
-                                  class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" />
+                        </inertia-link>
+                    </td>
+                    <td class="border-t">
+                        <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500"
+                                      :href="route('orders.edit', order.id)">
+                            {{ order.park_reference }}
                         </inertia-link>
                     </td>
                     <td class="border-t">
